@@ -20,9 +20,13 @@ namespace AcortadorURLs.Infrastructure.Persistence
         {
             _urls[url.CodigoCorto.ToString()] = url;
         }
+       
         public async Task ActualizarAsync(Url url)
         {
-            _urls[url.CodigoCorto.ToString()] = url; 
+            if (_urls.ContainsKey(url.CodigoCorto.ToString()))
+            {
+                _urls[url.CodigoCorto.ToString()] = url; 
+            }
         }
     }
 }
