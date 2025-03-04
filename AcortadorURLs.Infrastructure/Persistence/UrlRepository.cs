@@ -15,7 +15,12 @@ namespace AcortadorURLs.Infrastructure.Persistence
             _urls.TryGetValue(codigo, out var url);
             return url;
         }
-
+     
+        public async Task<Url?> ObtenerPorUrlAsync(string urlOriginal)
+        {
+            return _urls.Values.FirstOrDefault(u => u.UrlOriginal == urlOriginal);
+        }
+        
         public async Task AgregarAsync(Url url)
         {
             _urls[url.CodigoCorto.ToString()] = url;

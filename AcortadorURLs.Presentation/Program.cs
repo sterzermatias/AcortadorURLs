@@ -11,7 +11,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 
 builder.Services.AddSingleton<IUrlRepository, UrlRepository>();
-builder.Services.AddSingleton<GeneradorCodigoService>();
+var generadorCodigoService = new GeneradorCodigoService(new GeneradorCodigoAleatorio()); 
+builder.Services.AddSingleton(generadorCodigoService);
 builder.Services.AddScoped<AcortarURL>();
 builder.Services.AddScoped<ObtenerURL>(); 
 

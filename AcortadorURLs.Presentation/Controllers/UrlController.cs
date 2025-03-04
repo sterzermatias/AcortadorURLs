@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using AcortadorURLs.Application.UseCases;
+using AcortadorURLs.Core.Services;
 using AcortadorURLs.Core.Repositories;
+using AcortadorURLs.Appliaction.DTOs;
+using AcortadorURLs.Presentation.DTOs;
+
 
 namespace AcortadorURLs.Presentation.Controllers
 {
@@ -12,29 +16,34 @@ namespace AcortadorURLs.Presentation.Controllers
         private readonly AcortarURL _acortarURL;
         private readonly ObtenerURL _obtenerURL;
         private readonly IUrlRepository _urlRepository;
-        public UrlController(AcortarURL acortarURL, ObtenerURL obtenerURL, IUrlRepository urlRepository)
+        private readonly GeneradorCodigoService  _generadorCodigoService;
+        public UrlController(AcortarURL acortarURL, ObtenerURL obtenerURL, IUrlRepository urlRepository, GeneradorCodigoService  generadorCodigoService)
         {
             _acortarURL = acortarURL;
             _urlRepository = urlRepository;
             _obtenerURL = obtenerURL;
+            _generadorCodigoService = generadorCodigoService;
         }
 
         [HttpPost("acortar")]
-        public async Task<IActionResult> Acortar([FromBody] string url)
+        public async Task<IActionResult> Acortar([FromBody] AcortarUrlRequest request)
         {
-            if (string.IsNullOrWhiteSpace(url))
+            if (string.IsNullOrWhiteSpace(request.Url))
                 return BadRequest("La URL no puede estar vacía.");
-            if (!Uri.TryCreate(url, UriKind.Absolute, out _))
+            if (!Uri.TryCreate(request.Url, UriKind.Absolute, out _))
                 return BadRequest(new { mensaje = "La URL proporcionada no es válida." });
             try
             {
-                var urlExistente = await _urlRepository.ObtenerPorCodigoAsync(url);
-                if (urlExistente != null)
-                    return Ok(new { mensaje = "Esta URL ya fue acortada.", urlCorta = $"https://acortar.io/{urlExistente.CodigoCorto}" });
-
-                // Generar la URL corta
-                var codigo = await _acortarURL.Ejecutar(url);
-                return Ok(new { mensaje = "URL acortada con éxito", urlCorta = $"https://acortar.io/{codigo}" });
+                var resultado = await _acortarURL.Ejecutar(request.Url, request.CodigoPersonalizado);
+                return Ok(new 
+                {
+                    mensaje = resultado.YaExistia ? "Esta URL ya fue acortada anteriormente." : "URL acortada con éxito.",
+                    urlCorta = $"https://acortar.io/{resultado.CodigoCorto}"
+                });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { mensaje = ex.Message });
             }
             catch (Exception ex)
             {
@@ -62,5 +71,18 @@ namespace AcortadorURLs.Presentation.Controllers
 
             return Ok(new { urlOriginal = url.UrlOriginal, clics = url.Clics });
         }
+        [HttpPost("cambiar-estrategia")]
+        public IActionResult CambiarEstrategia([FromBody] string estrategia)
+        {
+            if (estrategia.Equals("aleatorio", StringComparison.OrdinalIgnoreCase))
+                _generadorCodigoService.EstablecerEstrategia(new GeneradorCodigoAleatorio());
+            else if (estrategia.Equals("hexadecimal", StringComparison.OrdinalIgnoreCase))
+                _generadorCodigoService.EstablecerEstrategia(new GeneradorCodigoHexadecimal());
+            else
+                return BadRequest(new { mensaje = "Estrategia no válida. Usa 'aleatorio' o 'hexadecimal'." });
+
+            return Ok(new { mensaje = $"Estrategia cambiada a {estrategia}." });
+        }
+
     }
 }

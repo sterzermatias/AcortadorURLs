@@ -4,6 +4,8 @@ using AcortadorURLs.Core.Services;
 using AcortadorURLs.Core.ValueObjects;
 using System;
 using System.Threading.Tasks;
+using AcortadorURLs.Appliaction.DTOs;
+
 
 namespace AcortadorURLs.Application.UseCases
 {
@@ -18,14 +20,34 @@ namespace AcortadorURLs.Application.UseCases
             _generadorCodigoService = generadorCodigoService;
         }
 
-        public async Task<string> Ejecutar(string urlOriginal)
+        public async Task<ResultadoAcortador> Ejecutar(string urlOriginal, string? codigoPersonalizado)
         {
-            string codigoGenerado = _generadorCodigoService.Generar();
-            var url = new Url(urlOriginal, new CodigoURL(codigoGenerado));
+            var urlExistente = await _urlRepository.ObtenerPorUrlAsync(urlOriginal);
+            if (urlExistente != null)
+            {
+                return new ResultadoAcortador(urlExistente.CodigoCorto.ToString(), true);
+            }
 
-            await _urlRepository.AgregarAsync(url);
-
-            return codigoGenerado;
+            var codigo = !string.IsNullOrEmpty(codigoPersonalizado)
+            ? await ValidarCodigoPersonalizado(codigoPersonalizado)
+            : _generadorCodigoService.GenerarCodigo();
+            await CrearYGuardarUrl(urlOriginal, codigo);
+            return new ResultadoAcortador(codigo, false);   
         }
+
+    private async Task<string> ValidarCodigoPersonalizado(string codigoPersonalizado)
+    {
+        if (await _urlRepository.ObtenerPorCodigoAsync(codigoPersonalizado) != null)
+        {
+            throw new InvalidOperationException("El código corto elegido ya está en uso.");
+        }
+        return codigoPersonalizado;
+    }
+    private async Task<string> CrearYGuardarUrl(string urlOriginal, string codigo)
+    {
+        var url = new Url(urlOriginal, new CodigoURL(codigo));
+        await _urlRepository.AgregarAsync(url);
+        return codigo;
+    }
     }
 }
