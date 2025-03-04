@@ -1,0 +1,6 @@
+@AcortadorURLs.Presentation_HostAddress = http://localhost:5080
+
+GET {{AcortadorURLs.Presentation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

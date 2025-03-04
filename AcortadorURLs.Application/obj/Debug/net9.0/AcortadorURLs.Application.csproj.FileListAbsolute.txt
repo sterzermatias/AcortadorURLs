@@ -1,0 +1,15 @@
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/bin/Debug/net9.0/AcortadorURLs.Application.deps.json
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/bin/Debug/net9.0/AcortadorURLs.Application.dll
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/bin/Debug/net9.0/AcortadorURLs.Application.pdb
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/bin/Debug/net9.0/AcortadorURLs.Core.dll
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/bin/Debug/net9.0/AcortadorURLs.Core.pdb
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/obj/Debug/net9.0/AcortadorURLs.Application.csproj.AssemblyReference.cache
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/obj/Debug/net9.0/AcortadorURLs.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/obj/Debug/net9.0/AcortadorURLs.Application.AssemblyInfoInputs.cache
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/obj/Debug/net9.0/AcortadorURLs.Application.AssemblyInfo.cs
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/obj/Debug/net9.0/AcortadorURLs.Application.csproj.CoreCompileInputs.cache
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/obj/Debug/net9.0/Acortado.14D812DC.Up2Date
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/obj/Debug/net9.0/AcortadorURLs.Application.dll
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/obj/Debug/net9.0/refint/AcortadorURLs.Application.dll
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/obj/Debug/net9.0/AcortadorURLs.Application.pdb
+/Users/matiassterzer/Projects/AcortadorURLs/AcortadorURLs.Application/obj/Debug/net9.0/ref/AcortadorURLs.Application.dll

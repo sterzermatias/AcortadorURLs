@@ -1,0 +1,56 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "AcortadorURLs.Infrastructure/1.0.0": {
+        "dependencies": {
+          "AcortadorURLs.Application": "1.0.0",
+          "AcortadorURLs.Core": "1.0.0"
+        },
+        "runtime": {
+          "AcortadorURLs.Infrastructure.dll": {}
+        }
+      },
+      "AcortadorURLs.Application/1.0.0": {
+        "dependencies": {
+          "AcortadorURLs.Core": "1.0.0"
+        },
+        "runtime": {
+          "AcortadorURLs.Application.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "AcortadorURLs.Core/1.0.0": {
+        "runtime": {
+          "AcortadorURLs.Core.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AcortadorURLs.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AcortadorURLs.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AcortadorURLs.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
