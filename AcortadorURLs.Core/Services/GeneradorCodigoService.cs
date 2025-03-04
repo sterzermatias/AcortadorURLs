@@ -2,13 +2,21 @@
 {
     public class GeneradorCodigoService
     {
-        private static readonly Random _random = new();
-        public string Generar()
-            {
-                const string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                return new string(Enumerable.Range(0, 6)
-                    .Select(_ => caracteres[_random.Next(caracteres.Length)])
-                    .ToArray());
-            } 
+        private IGeneradorCodigoStrategy _strategy;
+
+        public GeneradorCodigoService(IGeneradorCodigoStrategy strategy)
+        {
+            _strategy = strategy;
+        }
+
+        public void EstablecerEstrategia(IGeneradorCodigoStrategy strategy)
+        {
+            _strategy = strategy;
+        }
+
+        public string GenerarCodigo()
+        {
+            return _strategy.Generar();
+        }
     }
 }
