@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../buildMultiTargeting/AcortadorURLs.Presentation.props" />
-</Project>
