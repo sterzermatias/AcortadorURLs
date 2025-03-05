@@ -72,16 +72,16 @@ namespace AcortadorURLs.Presentation.Controllers
             return Ok(new { urlOriginal = url.UrlOriginal, clics = url.Clics });
         }
         [HttpPost("cambiar-estrategia")]
-        public IActionResult CambiarEstrategia([FromBody] string estrategia)
+        public IActionResult CambiarEstrategia([FromBody] EstrategiaCodigoRequest request)
         {
-            if (estrategia.Equals("aleatorio", StringComparison.OrdinalIgnoreCase))
+            if (request.Estrategia.Equals("aleatorio", StringComparison.OrdinalIgnoreCase))
                 _generadorCodigoService.EstablecerEstrategia(new GeneradorCodigoAleatorio());
-            else if (estrategia.Equals("hexadecimal", StringComparison.OrdinalIgnoreCase))
+            else if (request.Estrategia.Equals("hexadecimal", StringComparison.OrdinalIgnoreCase))
                 _generadorCodigoService.EstablecerEstrategia(new GeneradorCodigoHexadecimal());
             else
                 return BadRequest(new { mensaje = "Estrategia no válida. Usa 'aleatorio' o 'hexadecimal'." });
 
-            return Ok(new { mensaje = $"Estrategia cambiada a {estrategia}." });
+            return Ok(new { mensaje = $"Estrategia cambiada a {request.Estrategia}." });
         }
 
     }
